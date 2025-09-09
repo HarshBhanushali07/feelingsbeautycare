@@ -1,0 +1,322 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Feelings Beauty Care Design System - Ultra Luxury Salon Theme
+All colors MUST be HSL. Premium beauty salon palette with glassmorphic effects.
+*/
+
+@layer base {
+  :root {
+    /* Luxury Salon Color Palette */
+    --background: 35 36% 98%;              /* Ivory White #FAF9F6 */
+    --foreground: 0 0% 17%;                /* Charcoal Black #2B2B2B */
+
+    --card: 35 36% 98%;                    /* Ivory White with transparency */
+    --card-foreground: 0 0% 17%;
+
+    --popover: 35 36% 98%;
+    --popover-foreground: 0 0% 17%;
+
+    --primary: 342 33% 47%;                /* Deep Rose #8B3A62 */
+    --primary-foreground: 35 36% 98%;
+
+    --secondary: 340 25% 73%;              /* Blush Pink #F8C8DC */
+    --secondary-foreground: 0 0% 17%;
+
+    --muted: 340 25% 73%;                  /* Blush Pink */
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 340 25% 73%;                 /* Blush Pink */
+    --accent-foreground: 0 0% 17%;
+
+    --rose-gold: 346 31% 58%;              /* Rose Gold #B76E79 */
+    --rose-gold-foreground: 35 36% 98%;
+
+    --luxury-glass: 340 25% 95%;           /* Ultra light for glassmorphism */
+    --luxury-shimmer: 340 25% 85%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 35 36% 98%;
+
+    --border: 340 25% 90%;
+    --input: 340 25% 95%;
+    --ring: 342 33% 47%;
+
+    --radius: 1rem;
+
+    /* Premium Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(340 25% 95%), hsl(346 31% 88%));
+    --gradient-luxury: linear-gradient(145deg, hsl(342 33% 47%), hsl(346 31% 58%));
+    --gradient-glass: linear-gradient(145deg, hsl(340 25% 95% / 0.3), hsl(346 31% 88% / 0.2));
+    --gradient-shimmer: linear-gradient(45deg, transparent 30%, hsl(340 25% 85% / 0.5) 50%, transparent 70%);
+
+    /* Glassmorphic Effects */
+    --glass-bg: hsl(340 25% 95% / 0.25);
+    --glass-border: hsl(346 31% 58% / 0.18);
+    --glass-shadow: 0 8px 32px hsl(342 33% 47% / 0.15);
+
+    /* Animation Variables */
+    --transition-luxury: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-shimmer: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 1rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark theme for luxury salon (evening spa ambiance) */
+    --background: 0 0% 8%;                 /* Deep charcoal */
+    --foreground: 35 36% 98%;
+
+    --card: 0 0% 12%;
+    --card-foreground: 35 36% 98%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 35 36% 98%;
+
+    --primary: 346 31% 58%;                /* Rose Gold */
+    --primary-foreground: 0 0% 8%;
+
+    --secondary: 342 33% 25%;              /* Deep Rose darker */
+    --secondary-foreground: 35 36% 98%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 340 25% 65%;
+
+    --accent: 346 31% 58%;
+    --accent-foreground: 0 0% 8%;
+
+    --rose-gold: 346 31% 68%;
+    --rose-gold-foreground: 0 0% 8%;
+
+    --luxury-glass: 0 0% 15%;
+    --luxury-shimmer: 346 31% 48%;
+
+    --destructive: 0 62.8% 50.6%;
+    --destructive-foreground: 35 36% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 346 31% 58%;
+
+    /* Dark theme gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 8%), hsl(342 33% 15%));
+    --gradient-luxury: linear-gradient(145deg, hsl(342 33% 25%), hsl(346 31% 35%));
+    --gradient-glass: linear-gradient(145deg, hsl(0 0% 15% / 0.4), hsl(342 33% 15% / 0.3));
+    --gradient-shimmer: linear-gradient(45deg, transparent 30%, hsl(346 31% 58% / 0.3) 50%, transparent 70%);
+
+    --glass-bg: hsl(0 0% 15% / 0.3);
+    --glass-border: hsl(346 31% 58% / 0.2);
+    --glass-shadow: 0 8px 32px hsl(0 0% 0% / 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-montserrat;
+    background: var(--gradient-hero);
+    min-height: 100vh;
+    /* Mobile optimization */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Mobile-specific optimizations */
+  @media (max-width: 768px) {
+    body {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Better touch targets */
+    button, a, input, textarea, select {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Improve scrolling on iOS */
+    * {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Luxury Typography */
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* Glassmorphic Effects */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  /* Glass input for mobile */
+  .glass-input {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+  }
+
+  .glass-input:focus {
+    background: hsl(var(--background) / 0.8);
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+  }
+
+  /* Enhanced Luxury Animations */
+  @keyframes float {
+    0%, 100% { 
+      transform: translateY(0px) rotate(0deg); 
+      filter: brightness(1);
+    }
+    33% { 
+      transform: translateY(-15px) rotate(2deg); 
+      filter: brightness(1.1);
+    }
+    66% { 
+      transform: translateY(8px) rotate(-1deg); 
+      filter: brightness(0.95);
+    }
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes petal-fall {
+    0% { 
+      transform: translateY(-100vh) rotate(0deg) scale(0);
+      opacity: 0;
+    }
+    10% { 
+      opacity: 1; 
+      transform: translateY(-80vh) rotate(45deg) scale(1);
+    }
+    90% { 
+      opacity: 0.8; 
+      transform: translateY(80vh) rotate(300deg) scale(0.8);
+    }
+    100% { 
+      transform: translateY(100vh) rotate(360deg) scale(0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 30px hsl(var(--rose-gold) / 0.4), 0 0 60px hsl(var(--primary) / 0.2);
+      filter: brightness(1);
+    }
+    50% { 
+      box-shadow: 0 0 50px hsl(var(--rose-gold) / 0.7), 0 0 100px hsl(var(--primary) / 0.4);
+      filter: brightness(1.1);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .animate-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-shimmer);
+    animation: shimmer 3s infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .animate-shimmer:hover::before {
+    opacity: 1;
+  }
+
+  .animate-petal {
+    animation: petal-fall 15s linear infinite;
+  }
+
+  .animate-glow {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Selection colors */
+  ::selection {
+    background: hsl(var(--rose-gold) / 0.3);
+    color: hsl(var(--foreground));
+  }
+
+  /* Mobile touch feedback */
+  @media (max-width: 768px) {
+    .touch-feedback {
+      transition: transform 0.1s ease, background-color 0.1s ease;
+    }
+    
+    .touch-feedback:active {
+      transform: scale(0.98);
+      background-color: hsl(var(--secondary) / 0.3);
+    }
+
+    /* Hide scrollbars on mobile but keep functionality */
+    ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+
+    /* Improve button press feedback */
+    button:active, .button:active {
+      transform: scale(0.98);
+    }
+
+    /* Better focus states for mobile */
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px hsl(var(--primary) / 0.3);
+    }
+  }
+}
