@@ -102,9 +102,18 @@ const TestimonialsCarousel = () => {
 - ${testimonial.name} (${testimonial.service})
 ${testimonial.rating}/5 stars
 
-Experience the same quality service! Contact us today 🌟`;
+Experience the same quality service! Visit us or call +91 98765 43210`;
 
-    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
+    // Use Web Share API if available, fallback to copying to clipboard
+    if (navigator.share) {
+      navigator.share({
+        title: 'Feelings Beauty Care Review',
+        text: message,
+      });
+    } else {
+      navigator.clipboard?.writeText(message);
+      // You could add a toast notification here
+    }
   };
 
   return (
@@ -259,10 +268,12 @@ Experience the same quality service! Contact us today 🌟`;
                 </Button>
                 <Button 
                   variant="glass"
-                  onClick={() => window.open('https://wa.me/919876543210?text=I would like to leave a review for Feelings Beauty Care.', '_blank')}
+                  asChild
                 >
-                  <Star className="mr-2 h-4 w-4" />
-                  Leave a Review
+                  <Link to="/contact">
+                    <Star className="mr-2 h-4 w-4" />
+                    Leave a Review
+                  </Link>
                 </Button>
               </div>
             </div>

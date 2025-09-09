@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
+import { CONTACT_INFO } from "@/data/constants";
 
 const services = [
   "Hair Styling & Cut",
@@ -89,20 +90,20 @@ const ContactForm = () => {
     });
 
     setIsSubmitting(false);
-
-    // Redirect to booking page after a delay
-    setTimeout(() => {
-      window.location.href = '/booking';
-    }, 2000);
   };
 
   const handleQuickService = (serviceName: string) => {
-    // Redirect to booking page with pre-selected service
-    const serviceId = serviceName === "Hair Styling" ? "haircut-style" :
-                     serviceName === "Makeup Services" ? "professional-makeup" :
-                     serviceName === "Facial Treatments" ? "facial-treatment" :
-                     serviceName === "Bridal Package" ? "bridal-package" : "facial-treatment";
+    // Use proper service mapping from services.ts
+    const serviceMap: Record<string, string> = {
+      "Hair Styling & Cut": "hair-cut-style",
+      "Makeup Services": "bridal-makeup", 
+      "Bridal Packages": "bridal-package",
+      "Facial Treatments": "facial-treatment",
+      "Beauty Courses": "hair-cut-style", // Default fallback
+      "Other Services": "facial-treatment"
+    };
     
+    const serviceId = serviceMap[serviceName] || "facial-treatment";
     window.location.href = `/booking?service=${serviceId}`;
   };
 
@@ -118,7 +119,7 @@ const ContactForm = () => {
               value={formData.firstName}
               onChange={(e) => setFormData({...formData, firstName: e.target.value})}
               placeholder="Your first name" 
-              className="rounded-xl"
+              className="rounded-xl glass-input"
               required 
             />
           </div>
@@ -130,7 +131,7 @@ const ContactForm = () => {
               value={formData.lastName}
               onChange={(e) => setFormData({...formData, lastName: e.target.value})}
               placeholder="Your last name" 
-              className="rounded-xl"
+              className="rounded-xl glass-input"
               required 
             />
           </div>
@@ -146,7 +147,7 @@ const ContactForm = () => {
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
               placeholder="your@email.com" 
-              className="rounded-xl"
+              className="rounded-xl glass-input"
               required 
             />
           </div>
@@ -157,8 +158,8 @@ const ContactForm = () => {
             <Input 
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
-              placeholder="+91 98765 43210" 
-              className="rounded-xl"
+              placeholder={CONTACT_INFO.phone} 
+              className="rounded-xl glass-input"
               required 
             />
           </div>
@@ -195,7 +196,7 @@ const ContactForm = () => {
           />
         </div>
 
-        <Button variant="luxury" size="lg" className="w-full" type="submit" disabled={isSubmitting}>
+        <Button variant="luxury" size="lg" className="w-full min-h-[48px] touch-feedback" type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Sending Message..." : "Send Message"}
         </Button>
 
@@ -213,15 +214,15 @@ const ContactForm = () => {
         </h4>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {services.slice(0, 6).map((service, index) => (
-            <Button
-              key={index}
-              variant="glass"
-              size="sm"
-              onClick={() => handleQuickService(service)}
-              className="text-xs h-auto py-2 px-3"
-            >
-              {service}
-            </Button>
+              <Button
+                key={index}
+                variant="glass"
+                size="sm"
+                onClick={() => handleQuickService(service)}
+                className="text-xs min-h-[44px] py-3 px-4 touch-feedback"
+              >
+                {service}
+              </Button>
           ))}
         </div>
       </div>

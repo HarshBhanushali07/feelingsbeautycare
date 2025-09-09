@@ -1,4 +1,7 @@
 import { Phone, Mail, MapPin, Clock, Instagram, Facebook, Youtube, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
+
+import { CONTACT_INFO } from "@/data/constants";
 
 const Footer = () => {
   const services = [
@@ -11,9 +14,9 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Youtube, href: "#", label: "YouTube" },
+    { icon: Instagram, href: "https://instagram.com/feelingsbeautycare", label: "Instagram" },
+    { icon: Facebook, href: "https://facebook.com/feelingsbeautycare", label: "Facebook" },
+    { icon: Youtube, href: "https://youtube.com/@feelingsbeautycare", label: "YouTube" },
   ];
 
   return (
@@ -43,7 +46,9 @@ const Footer = () => {
                   <a
                     key={index}
                     href={social.href}
-                    className="glass-card p-3 rounded-lg hover:bg-rose-gold/20 transition-all duration-300 hover:animate-glow"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-card p-3 rounded-lg hover:bg-rose-gold/20 transition-all duration-300 hover:animate-glow min-h-[44px] min-w-[44px] flex items-center justify-center touch-feedback"
                     aria-label={social.label}
                   >
                     <social.icon className="h-5 w-5 text-rose-gold" />
@@ -61,12 +66,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {services.map((service, index) => (
                 <li key={index}>
-                  <a
-                    href="#services"
-                    className="text-muted-foreground hover:text-primary transition-colors font-montserrat hover:underline"
+                  <Link
+                    to="/services"
+                    className="text-muted-foreground hover:text-primary transition-colors font-montserrat hover:underline min-h-[44px] flex items-center touch-feedback"
                   >
                     {service}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -79,34 +84,34 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3 font-montserrat">
               <li>
-                <a href="#home" className="text-muted-foreground hover:text-primary transition-colors hover:underline">
+                <Link to="/" className="text-muted-foreground hover:text-primary transition-colors hover:underline min-h-[44px] flex items-center touch-feedback">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#about" className="text-muted-foreground hover:text-primary transition-colors hover:underline">
+                <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors hover:underline min-h-[44px] flex items-center touch-feedback">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="text-muted-foreground hover:text-primary transition-colors hover:underline">
+                <Link to="/services" className="text-muted-foreground hover:text-primary transition-colors hover:underline min-h-[44px] flex items-center touch-feedback">
                   Services
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#gallery" className="text-muted-foreground hover:text-primary transition-colors hover:underline">
+                <Link to="/gallery" className="text-muted-foreground hover:text-primary transition-colors hover:underline min-h-[44px] flex items-center touch-feedback">
                   Gallery
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#courses" className="text-muted-foreground hover:text-primary transition-colors hover:underline">
+                <Link to="/courses" className="text-muted-foreground hover:text-primary transition-colors hover:underline min-h-[44px] flex items-center touch-feedback">
                   Beauty Courses
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="text-muted-foreground hover:text-primary transition-colors hover:underline">
+                <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors hover:underline min-h-[44px] flex items-center touch-feedback">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -119,30 +124,30 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-rose-gold mt-0.5 flex-shrink-0" />
-                <div className="font-montserrat">
-                  <p className="text-foreground font-semibold">Feelings Beauty Care</p>
-                  <p className="text-muted-foreground text-sm">123 Beauty Street, Near City Mall</p>
-                  <p className="text-muted-foreground text-sm">Jamnagar, Gujarat 361001</p>
-                </div>
+                  <div className="font-montserrat">
+                    <p className="text-foreground font-semibold">Feelings Beauty Care</p>
+                    <p className="text-muted-foreground text-sm">{CONTACT_INFO.address.street}</p>
+                    <p className="text-muted-foreground text-sm">{CONTACT_INFO.address.city}, {CONTACT_INFO.address.state} {CONTACT_INFO.address.pincode}</p>
+                  </div>
               </div>
               
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-rose-gold" />
                 <a 
-                  href="tel:+919876543210" 
+                  href={`tel:${CONTACT_INFO.phone}`}
                   className="text-muted-foreground hover:text-primary transition-colors font-montserrat"
                 >
-                  +91 98765 43210
+                  {CONTACT_INFO.phone}
                 </a>
               </div>
               
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-rose-gold" />
                 <a 
-                  href="mailto:info@feelingsbeautycare.com" 
+                  href={`mailto:${CONTACT_INFO.email}`}
                   className="text-muted-foreground hover:text-primary transition-colors font-montserrat"
                 >
-                  info@feelingsbeautycare.com
+                  {CONTACT_INFO.email}
                 </a>
               </div>
               

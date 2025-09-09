@@ -1,10 +1,13 @@
 import React, { Suspense } from 'react';
 import { Sparkles, Star, Heart, Crown, Palette, Scissors } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import BeautyProduct3D from "@/components/BeautyProduct3D";
+import { Link } from "react-router-dom";
+import OptimizedBeautyProduct3D from "@/components/OptimizedBeautyProduct3D";
+import { useIsMobile } from "@/hooks/use-mobile";
 import heroSalon from "@/assets/hero-salon.jpg";
 
 const Enhanced3DHero = () => {
+  const isMobile = useIsMobile();
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Enhanced Overlay */}
@@ -18,35 +21,31 @@ const Enhanced3DHero = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-rose-gold/10"></div>
       </div>
 
-      {/* Enhanced Floating Elements */}
+      {/* Optimized Floating Elements - reduce on mobile */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Floating beauty icons */}
-        {Array.from({ length: 8 }).map((_, i) => (
+        {/* Floating beauty icons - fewer on mobile */}
+        {Array.from({ length: isMobile ? 4 : 8 }).map((_, i) => (
           <div
             key={i}
-            className={`absolute animate-float ${
+            className={`absolute ${isMobile ? 'animate-pulse' : 'animate-float'} ${
               i % 4 === 0 ? "text-rose-gold" : i % 4 === 1 ? "text-secondary" : i % 4 === 2 ? "text-primary" : "text-accent"
             }`}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 6}s`,
-              animationDuration: `${4 + Math.random() * 4}s`,
-              fontSize: `${Math.random() * 15 + 15}px`,
+              left: `${20 + (i * 15)}%`,
+              top: `${20 + (i * 10)}%`,
+              animationDelay: `${i * 2}s`,
+              animationDuration: `${isMobile ? '2s' : '6s'}`,
+              fontSize: `${isMobile ? '20px' : '25px'}`,
             }}
           >
-            {i % 6 === 0 ? (
-              <Heart className="opacity-40 animate-pulse" />
-            ) : i % 6 === 1 ? (
-              <Sparkles className="opacity-50" />
-            ) : i % 6 === 2 ? (
-              <Star className="opacity-45" />
-            ) : i % 6 === 3 ? (
-              <Crown className="opacity-40" />
-            ) : i % 6 === 4 ? (
-              <Palette className="opacity-35" />
+            {i % 4 === 0 ? (
+              <Heart className={isMobile ? "opacity-20" : "opacity-40"} />
+            ) : i % 4 === 1 ? (
+              <Sparkles className={isMobile ? "opacity-25" : "opacity-50"} />
+            ) : i % 4 === 2 ? (
+              <Star className={isMobile ? "opacity-20" : "opacity-45"} />
             ) : (
-              <Scissors className="opacity-30" />
+              <Crown className={isMobile ? "opacity-15" : "opacity-40"} />
             )}
           </div>
         ))}
@@ -92,18 +91,24 @@ const Enhanced3DHero = () => {
               <Button 
                 variant="luxury" 
                 size="lg" 
-                className="text-xl px-10 py-7 transform hover:scale-105 transition-all duration-300 hover:animate-glow"
+                className="text-xl px-10 py-7 transform hover:scale-105 transition-all duration-300 hover:animate-glow min-h-[56px] touch-feedback"
+                asChild
               >
-                <Heart className="mr-2 h-5 w-5" />
-                Book Your Transformation
+                <Link to="/booking">
+                  <Heart className="mr-2 h-5 w-5" />
+                  Book Your Transformation
+                </Link>
               </Button>
               <Button 
                 variant="glass" 
                 size="lg" 
-                className="text-xl px-10 py-7 hover:shadow-2xl hover:shadow-rose-gold/20 transform hover:scale-105 transition-all duration-300"
+                className="text-xl px-10 py-7 hover:shadow-2xl hover:shadow-rose-gold/20 transform hover:scale-105 transition-all duration-300 min-h-[56px] touch-feedback"
+                asChild
               >
-                <Crown className="mr-2 h-5 w-5" />
-                Explore Courses
+                <Link to="/courses">
+                  <Crown className="mr-2 h-5 w-5" />
+                  Explore Courses
+                </Link>
               </Button>
             </div>
 
@@ -135,7 +140,7 @@ const Enhanced3DHero = () => {
                   <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary border-t-transparent"></div>
                 </div>
               }>
-                <BeautyProduct3D />
+                <OptimizedBeautyProduct3D />
               </Suspense>
             </div>
             
@@ -158,9 +163,13 @@ const Enhanced3DHero = () => {
         </div>
       </div>
 
-      {/* Ambient Light Effects */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-rose-gold/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+      {/* Ambient Light Effects - simplified for mobile */}
+      {!isMobile && (
+        <>
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-rose-gold/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        </>
+      )}
     </section>
   );
 };
