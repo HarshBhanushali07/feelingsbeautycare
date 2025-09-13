@@ -59,17 +59,15 @@ export const EnhancedAppointmentBooking = ({ preSelectedService, preSelectedServ
     { id: 4, title: "Confirm", icon: CheckCircle, completed: currentStep > 4 }
   ];
 
-  // Auto-save booking draft to localStorage
+  // Auto-select first service if preSelectedService is provided
   useEffect(() => {
-    const bookingDraft = {
-      selectedService,
-      selectedDate,
-      selectedTime,
-      customerInfo,
-      currentStep
-    };
-    localStorage.setItem('bookingDraft', JSON.stringify(bookingDraft));
-  }, [selectedService, selectedDate, selectedTime, customerInfo, currentStep]);
+    if (preSelectedService && !selectedService) {
+      const service = getServiceById(preSelectedService);
+      if (service) {
+        setSelectedService(service);
+      }
+    }
+  }, [preSelectedService, selectedService]);
 
   // Load booking draft on component mount
   useEffect(() => {

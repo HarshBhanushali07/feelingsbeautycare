@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { addTouchFeedback } from "@/components/TouchFeedback";
+import { getServiceById } from "@/data/services";
 
 const QuickBookingWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,12 +20,9 @@ const QuickBookingWidget = () => {
 
   if (!isVisible) return null;
 
-  const quickServices = [
-    { name: "Hair Styling", id: "haircut-style" },
-    { name: "Professional Makeup", id: "bridal-makeup" },
-    { name: "Facial Treatment", id: "facial-treatment" },
-    { name: "Bridal Package", id: "bridal-package" }
-  ];
+  // Use unified service data
+  const quickServiceIds = ["hair-cut-style", "bridal-makeup", "facial-treatment", "bridal-package"];
+  const quickServices = quickServiceIds.map(id => getServiceById(id)).filter(Boolean);
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -51,7 +49,7 @@ const QuickBookingWidget = () => {
               
               {quickServices.map((service) => (
                 <Button
-                  key={service.id}
+                  key={service!.id}
                   variant="glass"
                   size="sm"
                   className="w-full justify-start text-left"
@@ -59,11 +57,12 @@ const QuickBookingWidget = () => {
                 >
                   <Link 
                     to="/booking" 
-                    state={{ preSelectedService: service.id }}
+                    state={{ preSelectedService: service!.id }}
                     onClick={() => setIsOpen(false)}
                   >
                     <Calendar className="w-4 h-4 mr-2" />
-                    {service.name}
+                    {service!.name}
+                    <span className="ml-auto text-xs text-primary">₹{service!.price}</span>
                   </Link>
                 </Button>
               ))}
