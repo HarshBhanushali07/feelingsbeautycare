@@ -258,14 +258,14 @@ const UnifiedHeroSection = () => {
             >
               <Link to="/booking">Book Your Appointment</Link>
             </Button>
-            <Button 
-              variant="glass" 
-              size="lg" 
-              className="text-lg px-8 py-6"
-              asChild
-            >
-              <Link to="/course-enrollment">Explore Courses</Link>
-            </Button>
+              <Button 
+                variant="glass" 
+                size="lg" 
+                className="text-lg px-8 py-6"
+                asChild
+              >
+                <Link to="/courses">Explore Courses</Link>
+              </Button>
           </div>
 
           {/* Trust Indicators */}

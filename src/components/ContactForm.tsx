@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,6 +17,7 @@ const services = [
 ];
 
 const ContactForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -95,16 +97,22 @@ const ContactForm = () => {
   const handleQuickService = (serviceName: string) => {
     // Use proper service mapping from services.ts
     const serviceMap: Record<string, string> = {
-      "Hair Styling & Cut": "hair-cut-style",
+      "Hair Styling & Cut": "haircut-style",
       "Makeup Services": "bridal-makeup", 
       "Bridal Packages": "bridal-package",
       "Facial Treatments": "facial-treatment",
-      "Beauty Courses": "hair-cut-style", // Default fallback
+      "Beauty Courses": "facial-treatment", // Redirect to contact for courses
       "Other Services": "facial-treatment"
     };
     
     const serviceId = serviceMap[serviceName] || "facial-treatment";
-    window.location.href = `/booking?service=${serviceId}`;
+    
+    // Navigate using React Router instead of window.location
+    if (serviceName === "Beauty Courses") {
+      navigate("/courses");
+    } else {
+      navigate("/booking", { state: { preSelectedService: serviceId } });
+    }
   };
 
   return (

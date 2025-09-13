@@ -3,6 +3,7 @@ import { Calendar, Clock, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { addTouchFeedback } from "@/components/TouchFeedback";
 
 const QuickBookingWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,11 +14,14 @@ const QuickBookingWidget = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Add touch feedback for better mobile interaction
+  addTouchFeedback();
+
   if (!isVisible) return null;
 
   const quickServices = [
     { name: "Hair Styling", id: "haircut-style" },
-    { name: "Professional Makeup", id: "professional-makeup" },
+    { name: "Professional Makeup", id: "bridal-makeup" },
     { name: "Facial Treatment", id: "facial-treatment" },
     { name: "Bridal Package", id: "bridal-package" }
   ];
